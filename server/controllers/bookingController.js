@@ -91,8 +91,9 @@ res.json({ success: true, message: "Booking Created" });
 export const getUserBooking=async(req,res)=>{
     try {
         const{_id}=req.user;
-        const bookings=(await Booking.find({user:_id}).populate("car")).toSorted({createdAt:-1})
-
+        const bookings = await Booking.find({ user: _id })
+    .populate("car")
+    .sort({ createdAt: -1 });
         res.json({success:true,bookings})
     } catch (error) {
          console.log(error.message);
